@@ -43,6 +43,9 @@
 *.sdf
 *.VC.db
 *.VC.opendb
+*.bat
+*.apk
+
 
 # Precompiled Assets
 SourceArt/**/*.png
