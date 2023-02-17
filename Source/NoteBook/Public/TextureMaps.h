@@ -11,13 +11,13 @@ struct F_NumPair {
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(BlueprintReadWrite)
-		FString Type;
+		FString Type = "";
 	UPROPERTY(BlueprintReadWrite)
-		int32 TypeNum;
+		int32 TypeNum = 0;
 	UPROPERTY(BlueprintReadWrite)
-		UTexture2D* Texture;
+		UTexture2D* Texture = nullptr;
 	UPROPERTY(BlueprintReadWrite)
-		UMaterialInstanceDynamic* BookBlockMaterial;
+		UMaterialInstanceDynamic* BookBlockMaterial = nullptr;
 };
 
 UENUM(BlueprintType)

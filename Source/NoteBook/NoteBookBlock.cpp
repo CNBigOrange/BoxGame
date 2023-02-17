@@ -167,6 +167,7 @@ void ANoteBookBlock::HandleBoxArray(ABoxManeger* Manager, ANoteBookBlock* self)
 				if (OwningManager->Boxes.Num() == 0)
 				{
 					OwningManager->IsSuc = true;
+					//OwningManager->ShowWinWBP();
 				}
 			}
 			else if (BoxArray[0]->BoxInfo.TypeNum + 1 == BoxArray[1]->BoxInfo.TypeNum &&
@@ -188,6 +189,7 @@ void ANoteBookBlock::HandleBoxArray(ABoxManeger* Manager, ANoteBookBlock* self)
 				if (OwningManager->Boxes.Num() == 0)
 				{
 					OwningManager->IsSuc = true;
+					//OwningManager->ShowWinWBP();
 				}
 			}
 			else

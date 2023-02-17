@@ -157,6 +157,12 @@ void ABoxManeger::SetBoxTexture(TArray<AActor*> Actors, TMap<int32, F_NumPair> M
 {
 	/************************获取场景中方块*************************/
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ANoteBookBlock::StaticClass(), Actors);
+
+	//随机排序
+	Actors.Sort([](const AActor& A, const AActor& B) {
+		return  FMath::RandRange(0, 10) > FMath::RandRange(0, 10);
+				});
+
 	int i = 0;
 	for (auto Box : Actors)
 	{
@@ -175,4 +181,12 @@ void ABoxManeger::SetBoxTexture(TArray<AActor*> Actors, TMap<int32, F_NumPair> M
 		}
 		i++;
 	}
+
+
 }
+
+//void ABoxManeger::ShowWinWBP()
+//{
+//	CreateWidget<UUserWidget>(GetWorld(), WBP_Suc);
+//	WBP_Suc->AddToViewport(1);
+//}
