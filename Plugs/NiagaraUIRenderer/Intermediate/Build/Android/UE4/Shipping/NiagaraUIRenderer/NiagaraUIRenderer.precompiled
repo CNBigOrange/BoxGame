@@ -1,0 +1,8 @@
+{
+	"OutputFiles": [
+		"Module.NiagaraUIRenderer.cppa7.o",
+		"Module.NiagaraUIRenderer.cppa8.o",
+		"Module.NiagaraUIRenderer.gen.cppa7.o",
+		"Module.NiagaraUIRenderer.gen.cppa8.o"
+	]
+}
