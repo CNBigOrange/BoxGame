@@ -35,15 +35,61 @@ void ANoteBookBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SpawnBox();
+
+	GetWorld()->SpawnActor<ABoxManeger>(FVector(0,0,0),FRotator(0,0,0));//在Box生成后创建管理类
+}
+
+
+void ANoteBookBlockGrid::AddScore()
+{
+	// Increment score
+	Score++;
+
+	// Update text
+	//ScoreText->SetText(FText::Format(LOCTEXT("ScoreFmt", "Score: {0}"), FText::AsNumber(Score)));
+}
+
+bool ANoteBookBlockGrid::SetBlockOwner(ANoteBookBlock* NewBlock)
+{
+	bool SetSuc{ false };
+	// Tell the block about its owner告诉Block的拥有者
+	if (NewBlock != nullptr)
+	{
+		NewBlock->OwningGrid = this;//给ANoteBookBlock对象内部的ANoteBookBlockGrid变量赋值为当前实例
+		SetSuc = true;
+	}
+	return SetSuc;
+}
+
+void ANoteBookBlockGrid::Restart(int32 x, int32 y, int32 z)
+{
+	TArray<AActor*> BoxArray;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ANoteBookBlock::StaticClass(), BoxArray);
+	for (auto Box : BoxArray)
+	{
+		GetWorld() -> DestroyActor(Box, true, true);
+	}
+	XSize = x;
+	ZSize = z;
+	YSize = y;
+
+	SpawnBox();
+
+	GetWorld()->SpawnActor<ABoxManeger>(FVector(0, 0, 0), FRotator(0, 0, 0));
+}
+
+void ANoteBookBlockGrid::SpawnBox()
+{
 	// Number of blocks
 	const int32 NumBlocks = XSize;
 
 
 	// Loop to spawn each block
-	for(int32 BlockIndex=0; BlockIndex<NumBlocks; BlockIndex++)
+	for (int32 BlockIndex = 0; BlockIndex < NumBlocks; BlockIndex++)
 	{
 		const float XOffset = (BlockIndex % XSize) * BlockSpacing; // Divide by dimension
-		
+
 		const FVector BlockLocation = FVector(XOffset, 0, 0) + GetActorLocation();
 
 		// Spawn a block
@@ -82,30 +128,6 @@ void ANoteBookBlockGrid::BeginPlay()
 			SetBlockOwner(ZNewBlock);
 		}
 	}
-
-	GetWorld()->SpawnActor<ABoxManeger>(FVector(0,0,0),FRotator(0,0,0));//在Box生成后创建管理类
-}
-
-
-void ANoteBookBlockGrid::AddScore()
-{
-	// Increment score
-	Score++;
-
-	// Update text
-	//ScoreText->SetText(FText::Format(LOCTEXT("ScoreFmt", "Score: {0}"), FText::AsNumber(Score)));
-}
-
-bool ANoteBookBlockGrid::SetBlockOwner(ANoteBookBlock* NewBlock)
-{
-	bool SetSuc{ false };
-	// Tell the block about its owner告诉Block的拥有者
-	if (NewBlock != nullptr)
-	{
-		NewBlock->OwningGrid = this;//给ANoteBookBlock对象内部的ANoteBookBlockGrid变量赋值为当前实例
-		SetSuc = true;
-	}
-	return SetSuc;
 }
 
 #undef LOCTEXT_NAMESPACE

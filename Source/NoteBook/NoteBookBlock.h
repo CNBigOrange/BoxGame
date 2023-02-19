@@ -50,8 +50,14 @@ public:
 	UPROPERTY()
 	class ABoxManeger* OwningManager;//Boxπ‹¿Ì’ﬂ
 
-	UPROPERTY()
+	UPROPERTY(EditAnyWhere)
 	FName Tag = "BlockBox";
+
+	UPROPERTY(EditAnyWhere)
+	FName LevelToLoad = "Level2";
+
+	UPROPERTY()
+	FLatentActionInfo LatentInfo;
 
 	UPROPERTY()
 	F_NumPair BoxInfo;

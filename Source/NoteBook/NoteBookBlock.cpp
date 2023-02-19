@@ -153,8 +153,10 @@ void ANoteBookBlock::HandleBoxArray(ABoxManeger* Manager, ANoteBookBlock* self)
 			{
 				for (auto Box : BoxArray) {
 					//消除选中的盒子
-					Box->BlockMesh->DestroyComponent();
+					GetWorld()->DestroyActor(Box, false, false);
 				}
+				OwningManager->BoxesNum = OwningManager->BoxesNum - 3;
+
 				if (ClickSound && RemoveSound)
 				{
 					UGameplayStatics::PlaySoundAtLocation(GetWorld(), RemoveSound, this->GetActorLocation());
@@ -163,11 +165,14 @@ void ANoteBookBlock::HandleBoxArray(ABoxManeger* Manager, ANoteBookBlock* self)
 				OwningManager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 10; });
 				//相同消除加分
 
+
 				//判断是否通关
-				if (OwningManager->Boxes.Num() == 0)
+				if (OwningManager->BoxesNum == 0)
 				{
 					OwningManager->IsSuc = true;
 					//OwningManager->ShowWinWBP();
+					//UGameplaystatics::LoadStreamLevel(this,LevelToLoad,true,true, LatentInfo);
+					UGameplayStatics::OpenLevel(GetWorld(), TEXT("Level2"));
 				}
 			}
 			else if (BoxArray[0]->BoxInfo.TypeNum + 1 == BoxArray[1]->BoxInfo.TypeNum &&
@@ -175,8 +180,10 @@ void ANoteBookBlock::HandleBoxArray(ABoxManeger* Manager, ANoteBookBlock* self)
 			{
 				for (auto Box : BoxArray) {
 					//消除选中的盒子
-					Box->BlockMesh->DestroyComponent();
+					GetWorld()->DestroyActor(Box, false, false);
 				}
+				OwningManager->BoxesNum = OwningManager->BoxesNum - 3;
+
 				if (ClickSound && RemoveSound)
 				{
 					UGameplayStatics::PlaySoundAtLocation(GetWorld(), RemoveSound, this->GetActorLocation());
@@ -185,11 +192,14 @@ void ANoteBookBlock::HandleBoxArray(ABoxManeger* Manager, ANoteBookBlock* self)
 				OwningManager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 10; });
 				//顺子消除加分
 
+
 				//判断是否通关
-				if (OwningManager->Boxes.Num() == 0)
+				if (OwningManager->BoxesNum == 0)
 				{
 					OwningManager->IsSuc = true;
 					//OwningManager->ShowWinWBP();
+					//UGameplaystatics::LoadStreamLevel(this, LevelToLoad, true, true, LatentInfo);
+					UGameplayStatics::OpenLevel(GetWorld(), TEXT("Level2"));
 				}
 			}
 			else

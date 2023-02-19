@@ -158,6 +158,9 @@ void ABoxManeger::SetBoxTexture(TArray<AActor*> Actors, TMap<int32, F_NumPair> M
 	/************************获取场景中方块*************************/
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ANoteBookBlock::StaticClass(), Actors);
 
+	BoxesNum = Actors.Num();
+	UE_LOG(LogTemp, Display, TEXT("%i"), BoxesNum);
+
 	//随机排序
 	Actors.Sort([](const AActor& A, const AActor& B) {
 		return  FMath::RandRange(0, 10) > FMath::RandRange(0, 10);

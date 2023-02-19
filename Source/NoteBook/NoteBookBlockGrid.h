@@ -54,10 +54,17 @@ protected:
 	UFUNCTION()
 	bool SetBlockOwner(ANoteBookBlock* NewBlock);
 
+	UFUNCTION()
+	void SpawnBox();
+
 public:
 
 	/** Handle the block being clicked */
 	void AddScore();
+
+	/*Restart*/
+	UFUNCTION(BlueprintCallable)
+	void Restart(int32 x,int32 y,int32 z);
 
 	/** Returns DummyRoot subobject **/
 	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }

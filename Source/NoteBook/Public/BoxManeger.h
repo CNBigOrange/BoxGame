@@ -23,6 +23,9 @@ public:
 	TArray<AActor*> OutActors;
 
 	UPROPERTY()
+	int32 BoxesNum;
+
+	UPROPERTY()
 	TMap<int32, F_NumPair> BoxesMap;
 
 	UPROPERTY()
