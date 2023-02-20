@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "NoteBook/public/TextureMaps.h"
 #include "NoteBook/public/BoxManeger.h"
+#include "NoteBook/public/BoxManegerLevel1.h"
 #include "Sound/SoundCue.h"
 #include "Kismet/GameplayStatics.h"
 #include "NoteBookBlock.generated.h"
@@ -50,6 +51,9 @@ public:
 	UPROPERTY()
 	class ABoxManeger* OwningManager;//Box管理者
 
+	UPROPERTY()
+	class ABoxManegerLevel1* OwningManager2;//Box管理者
+
 	UPROPERTY(EditAnyWhere)
 	FName Tag = "BlockBox";
 
@@ -79,8 +83,10 @@ public:
 	UFUNCTION()
 	void OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
 
+	
+	template <typename T>
 	UFUNCTION()
-	void HandleBoxArray(ABoxManeger* Manager, ANoteBookBlock* self);
+	void HandleBoxArray(T Manager, ANoteBookBlock* self);
 
 
 

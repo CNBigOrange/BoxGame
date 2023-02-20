@@ -45,9 +45,4 @@ protected:
 	UFUNCTION()
 		void SetBoxTexture(TArray<AActor*> Actors, TMap<int32, F_NumPair> Map);
 
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-
 };
