@@ -76,7 +76,7 @@ void ANoteBookBlockGrid::Restart(int32 x, int32 y, int32 z)
 
 	SpawnBox();
 
-	GetWorld()->SpawnActor<ABoxManeger>(FVector(0, 0, 0), FRotator(0, 0, 0));
+	GetWorld()->SpawnActor<ABoxManeger>(FVector(0, 0, 0), FRotator(0, 0, 0)); 
 }
 
 void ANoteBookBlockGrid::SpawnBox()
