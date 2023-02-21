@@ -45,6 +45,7 @@ ANoteBookBlock::ANoteBookBlock()
 	BlockMesh->OnClicked.AddDynamic(this, &ANoteBookBlock::BlockClicked);
 	BlockMesh->OnInputTouchBegin.AddDynamic(this, &ANoteBookBlock::OnFingerPressedBlock);
 	BlockMesh->SetRenderCustomDepth(false);
+	BlockMesh->SetSimulatePhysics(false);
 
 
 	// Save a pointer to the orange material
@@ -99,11 +100,11 @@ void ANoteBookBlock::HandleClicked()
 		}
 
 		if (OwningManager) {
-			HandleBoxArray<ABoxManeger*>(OwningManager, this);
+			HandleBoxArray<ABoxManeger*>(OwningManager, this , 3);
 			//UE_LOG(LogTemp,Display,TEXT(""))
 		}
 		else if (OwningManager2) {
-			HandleBoxArray<ABoxManegerLevel1*>(OwningManager2, this);
+			HandleBoxArray<ABoxManegerLevel1*>(OwningManager2, this , 2);
 		}
 	}
 
@@ -127,8 +128,8 @@ void ANoteBookBlock::Highlight(bool bOn)
 	}
 }
 
-template <typename T>
-void ANoteBookBlock::HandleBoxArray(T Manager, ANoteBookBlock* self)
+template <typename T1>
+void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , int32 Level)
 {
 	if (!self) return;
 
@@ -179,7 +180,7 @@ void ANoteBookBlock::HandleBoxArray(T Manager, ANoteBookBlock* self)
 					Manager->IsSuc = true;
 					//OwningManager->ShowWinWBP();
 					//UGameplaystatics::LoadStreamLevel(this,LevelToLoad,true,true, LatentInfo);
-					UGameplayStatics::OpenLevel(GetWorld(), TEXT("Level2"));
+					UGameplayStatics::OpenLevel(GetWorld(), TEXT("Level%i"), Level);
 				}
 			}
 			else if (BoxArray[0]->BoxInfo.TypeNum + 1 == BoxArray[1]->BoxInfo.TypeNum &&
@@ -206,7 +207,7 @@ void ANoteBookBlock::HandleBoxArray(T Manager, ANoteBookBlock* self)
 					Manager->IsSuc = true;
 					//OwningManager->ShowWinWBP();
 					//UGameplaystatics::LoadStreamLevel(this, LevelToLoad, true, true, LatentInfo);
-					UGameplayStatics::OpenLevel(GetWorld(), TEXT("Level2"));
+					UGameplayStatics::OpenLevel(GetWorld(), TEXT("Level%i"), Level);
 				}
 			}
 			else

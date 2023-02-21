@@ -23,8 +23,9 @@ class ANoteBookBlock : public AActor
 	class USceneComponent* DummyRoot;
 
 	/** StaticMesh component for the clickable block */
-	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = Block, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* BlockMesh;
+
 
 public:
 	ANoteBookBlock();
@@ -84,9 +85,9 @@ public:
 	void OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
 
 	
-	template <typename T>
+	template <typename T1>
 	UFUNCTION()
-	void HandleBoxArray(T Manager, ANoteBookBlock* self);
+	void HandleBoxArray(T1 Manager, ANoteBookBlock* self,int32 T2);
 
 
 
