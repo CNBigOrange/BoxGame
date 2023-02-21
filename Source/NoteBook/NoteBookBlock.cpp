@@ -94,17 +94,17 @@ void ANoteBookBlock::HandleClicked()
 			OwningGrid->AddScore();
 		}
 
-		if (ClickSound && RemoveSound)
+		if (ClickSound)
 		{
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), ClickSound, this->GetActorLocation());
 		}
 
-		if (OwningManager) {
-			HandleBoxArray<ABoxManeger*>(OwningManager, this , 3);
+		if (OwningManager3) {
+			HandleSameBoxArray<ABoxManegerLevel2*>(OwningManager3, this , "Level3");
 			//UE_LOG(LogTemp,Display,TEXT(""))
 		}
 		else if (OwningManager2) {
-			HandleBoxArray<ABoxManegerLevel1*>(OwningManager2, this , 2);
+			HandleBoxArray<ABoxManegerLevel1*>(OwningManager2, this , "Level2");
 		}
 	}
 
@@ -129,7 +129,7 @@ void ANoteBookBlock::Highlight(bool bOn)
 }
 
 template <typename T1>
-void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , int32 Level)
+void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , FName Level)
 {
 	if (!self) return;
 
@@ -180,7 +180,7 @@ void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , int32 Lev
 					Manager->IsSuc = true;
 					//OwningManager->ShowWinWBP();
 					//UGameplaystatics::LoadStreamLevel(this,LevelToLoad,true,true, LatentInfo);
-					UGameplayStatics::OpenLevel(GetWorld(), TEXT("Level%i"), Level);
+					UGameplayStatics::OpenLevel(GetWorld(), Level);
 				}
 			}
 			else if (BoxArray[0]->BoxInfo.TypeNum + 1 == BoxArray[1]->BoxInfo.TypeNum &&
@@ -207,7 +207,7 @@ void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , int32 Lev
 					Manager->IsSuc = true;
 					//OwningManager->ShowWinWBP();
 					//UGameplaystatics::LoadStreamLevel(this, LevelToLoad, true, true, LatentInfo);
-					UGameplayStatics::OpenLevel(GetWorld(), TEXT("Level%i"), Level);
+					UGameplayStatics::OpenLevel(GetWorld(), Level);
 				}
 			}
 			else
@@ -234,6 +234,84 @@ void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , int32 Lev
 			}
 			Manager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 10; });
 			UE_LOG(LogTemp, Display, TEXT("RemoveAll"));
+		}
+
+	}
+
+}
+
+template <typename T1>
+void ANoteBookBlock::HandleSameBoxArray(T1 Manager, ANoteBookBlock* self, FName Level)
+{
+	if (!self) return;
+
+	Manager->Boxes.Add(self);
+	auto BoxArray = Manager->Boxes;
+
+	if (BoxArray.Num() == 3)
+	{
+		UE_LOG(LogTemp, Display, TEXT("%i"), BoxArray.Num());
+
+		if (BoxArray[0] == nullptr && BoxArray[1] == nullptr && BoxArray[2] == nullptr)
+		{
+			Manager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 100; });
+			UE_LOG(LogTemp, Display, TEXT("nullptr"));
+			return;
+		};
+
+		if (BoxArray[0]->BoxInfo.Type == BoxArray[1]->BoxInfo.Type && BoxArray[1]->BoxInfo.Type == BoxArray[2]->BoxInfo.Type)
+		{
+
+			if (BoxArray[0]->BoxInfo.TypeNum == BoxArray[1]->BoxInfo.TypeNum &&
+				BoxArray[2]->BoxInfo.TypeNum == BoxArray[1]->BoxInfo.TypeNum)
+			{
+				for (auto Box : BoxArray) {
+					//消除选中的盒子
+					GetWorld()->DestroyActor(Box, false, false);
+				}
+				Manager->BoxesNum = Manager->BoxesNum - 3;
+
+				if (ClickSound && RemoveSound)
+				{
+					UGameplayStatics::PlaySoundAtLocation(GetWorld(), RemoveSound, this->GetActorLocation());
+				}
+				UE_LOG(LogTemp, Display, TEXT("Same Box"));
+				Manager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 100; });
+				//相同消除加分
+
+
+				//判断是否通关
+				if (Manager->BoxesNum == 0)
+				{
+					Manager->IsSuc = true;
+					//OwningManager->ShowWinWBP();
+					//UGameplaystatics::LoadStreamLevel(this,LevelToLoad,true,true, LatentInfo);
+					UGameplayStatics::OpenLevel(GetWorld(), Level);
+				}
+			}
+			else
+			{
+				for (auto Box : BoxArray) {
+					//将三个盒子去除高亮
+					//Box->BlockMesh->SetRenderCustomDepth(false);
+					Box->BlockMesh->SetMaterial(0, BaseMaterial);
+
+					Box->bIsActive = false;
+				}
+				Manager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 100; });
+
+			}
+		}
+		else
+		{
+			for (auto Box : BoxArray) {
+				//将三个盒子去除高亮
+				//Box->BlockMesh->SetRenderCustomDepth(false);
+				Box->BlockMesh->SetMaterial(0, BaseMaterial);
+				Box->bIsActive = false;
+			}
+			Manager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 100; });
+
 		}
 
 	}

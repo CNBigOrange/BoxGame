@@ -7,6 +7,7 @@
 #include "NoteBook/public/TextureMaps.h"
 #include "NoteBook/public/BoxManeger.h"
 #include "NoteBook/public/BoxManegerLevel1.h"
+#include "NoteBook/public/BoxManegerLevel2.h"
 #include "Sound/SoundCue.h"
 #include "Kismet/GameplayStatics.h"
 #include "NoteBookBlock.generated.h"
@@ -50,16 +51,22 @@ public:
 	class ANoteBookBlockGrid* OwningGrid;//
 
 	UPROPERTY()
+	class ABaseBoxManeger* OwningManagerBase;//Box管理者
+
+	UPROPERTY()
 	class ABoxManeger* OwningManager;//Box管理者
 
 	UPROPERTY()
 	class ABoxManegerLevel1* OwningManager2;//Box管理者
 
+	UPROPERTY()
+	class ABoxManegerLevel2* OwningManager3;//Box管理者
+
 	UPROPERTY(EditAnyWhere)
 	FName Tag = "BlockBox";
 
 	UPROPERTY(EditAnyWhere)
-	FName LevelToLoad = "Level2";
+	FName Level2 = "Level2";
 
 	UPROPERTY()
 	FLatentActionInfo LatentInfo;
@@ -87,9 +94,11 @@ public:
 	
 	template <typename T1>
 	UFUNCTION()
-	void HandleBoxArray(T1 Manager, ANoteBookBlock* self,int32 T2);
+	void HandleBoxArray(T1 Manager, ANoteBookBlock* self,FName Level);
 
-
+	template <typename T1>
+	UFUNCTION()
+	void HandleSameBoxArray(T1 Manager, ANoteBookBlock* self, FName Level);
 
 	void HandleClicked();
 
