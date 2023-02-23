@@ -106,6 +106,9 @@ void ANoteBookBlock::HandleClicked()
 		else if (OwningManager2) {
 			HandleBoxArray<ABoxManegerLevel1*>(OwningManager2, this , "Level2");
 		}
+		else if (OwningManagerLevel3) {
+			HandleSameBoxArray<ABaseBoxManegerLevel3*>(OwningManagerLevel3, this, "Level3");
+		}
 	}
 
 }

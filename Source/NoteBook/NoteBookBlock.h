@@ -8,6 +8,7 @@
 #include "NoteBook/public/BoxManeger.h"
 #include "NoteBook/public/BoxManegerLevel1.h"
 #include "NoteBook/public/BoxManegerLevel2.h"
+#include "NoteBook/public/BaseBoxManegerLevel3.h"
 #include "Sound/SoundCue.h"
 #include "Kismet/GameplayStatics.h"
 #include "NoteBookBlock.generated.h"
@@ -61,6 +62,9 @@ public:
 
 	UPROPERTY()
 	class ABoxManegerLevel2* OwningManager3;//Box管理者
+
+	UPROPERTY()
+	class ABaseBoxManegerLevel3* OwningManagerLevel3;//Box管理者
 
 	UPROPERTY(EditAnyWhere)
 	FName Tag = "BlockBox";
