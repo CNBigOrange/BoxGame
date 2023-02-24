@@ -6,12 +6,39 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "MyBoxGameSubsystem.generated.h"
 
-/**
- * 
- */
+
+class ANoteBookBlock;
 UCLASS()
 class NOTEBOOK_API UMyBoxGameSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
-	
+
+
+public:
+	UFUNCTION(BlueprintCallable)
+		void Initi();
+
+	UFUNCTION()
+		void SetCurrentBoxNums();
+
+	UFUNCTION()
+		void AddScore();
+
+	UFUNCTION(BlueprintCallable)
+		FORCEINLINE int32 GetBoxNums() { return BoxNums; }
+
+	UFUNCTION(BlueprintCallable)
+		FORCEINLINE int32 GetScore() { return Score; }
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GameData")
+		int32 BoxNums;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GameData")
+		int32 Score;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GameData")
+		ANoteBookBlock* Box;
+protected:
+
+
 };

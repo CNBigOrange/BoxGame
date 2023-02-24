@@ -57,7 +57,6 @@ ANoteBookBlock::ANoteBookBlock()
 	ClickSound = ConstructorStatics.ClickSoundInst.Get();
 	RemoveSound = ConstructorStatics.RemoveSoundInst.Get();
 
-
 }
 
 void ANoteBookBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
@@ -78,21 +77,13 @@ void ANoteBookBlock::HandleClicked()
 	{
 		bIsActive = true;
 
-
-
 		// Change material
 		//BlockMesh->SetMaterial(0, PostMaterial);
 		this->BlockMesh->SetMaterial(0, PostMaterial);
 		//BlockMesh->SetRenderCustomDepth(true);
 
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, BoxInfo.Type);
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::FromInt(BoxInfo.TypeNum));
-
-		// Tell the Grid
-		if (OwningGrid != nullptr)
-		{
-			OwningGrid->AddScore();
-		}
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, BoxInfo.Type);
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::FromInt(BoxInfo.TypeNum));
 
 		if (ClickSound)
 		{
@@ -165,6 +156,7 @@ void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , FName Lev
 				for (auto Box : BoxArray) {
 					//消除选中的盒子
 					GetWorld()->DestroyActor(Box, false, false);
+					OnBoxesDelete.Broadcast();
 				}
 				Manager->BoxesNum = Manager->BoxesNum - 3;
 
@@ -192,6 +184,7 @@ void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , FName Lev
 				for (auto Box : BoxArray) {
 					//消除选中的盒子
 					GetWorld()->DestroyActor(Box, false, false);
+					OnBoxesDelete.Broadcast();
 				}
 				Manager->BoxesNum = Manager->BoxesNum - 3;
 
@@ -271,6 +264,7 @@ void ANoteBookBlock::HandleSameBoxArray(T1 Manager, ANoteBookBlock* self, FName 
 				for (auto Box : BoxArray) {
 					//消除选中的盒子
 					GetWorld()->DestroyActor(Box, false, false);
+					OnBoxesDelete.Broadcast();
 				}
 				Manager->BoxesNum = Manager->BoxesNum - 3;
 
@@ -318,5 +312,15 @@ void ANoteBookBlock::HandleSameBoxArray(T1 Manager, ANoteBookBlock* self, FName 
 		}
 
 	}
+
+}
+
+void ANoteBookBlock::GetCurrentBoxNums(int32 Nums)
+{
+
+}
+
+void ANoteBookBlock::AddScore(int32 Nums)
+{
 
 }

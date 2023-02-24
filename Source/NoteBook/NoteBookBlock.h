@@ -9,10 +9,13 @@
 #include "NoteBook/public/BoxManegerLevel1.h"
 #include "NoteBook/public/BoxManegerLevel2.h"
 #include "NoteBook/public/BaseBoxManegerLevel3.h"
+#include "NoteBook/public/MyBoxGameSubsystem.h"
 #include "Sound/SoundCue.h"
 #include "Kismet/GameplayStatics.h"
 #include "NoteBookBlock.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnBoxesDelete);
 
 /** A block that can be clicked */
 UCLASS(minimalapi)
@@ -87,6 +90,9 @@ public:
 	UPROPERTY(EditAnyWhere, BlueprintReadWrite)
 	UAudioComponent* AC;
 
+	//实例化代理
+    FOnBoxesDelete OnBoxesDelete;
+
 	/** Handle the block being clicked */
 	UFUNCTION()
 	void BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
@@ -107,6 +113,15 @@ public:
 	void HandleClicked();
 
 	void Highlight(bool bOn);
+
+protected:
+
+	UFUNCTION()
+		void GetCurrentBoxNums(int32 Nums);
+
+	UFUNCTION()
+		void AddScore(int32 Nums);
+
 
 public:
 	/** Returns DummyRoot subobject **/
