@@ -61,10 +61,10 @@ public:
 	class ABoxManeger* OwningManager;//Box管理者
 
 	UPROPERTY()
-	class ABoxManegerLevel1* OwningManager2;//Box管理者
+	class ABoxManegerLevel1* OwningManagerLevel1;//Box管理者
 
 	UPROPERTY()
-	class ABoxManegerLevel2* OwningManager3;//Box管理者
+	class ABoxManegerLevel2* OwningManagerLevel2;//Box管理者
 
 	UPROPERTY()
 	class ABaseBoxManegerLevel3* OwningManagerLevel3;//Box管理者

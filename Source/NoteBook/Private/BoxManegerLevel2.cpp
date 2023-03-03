@@ -120,7 +120,7 @@ void ABoxManegerLevel2::SetBoxTexture(TArray<AActor*> Actors, TMap<int32, F_NumP
 			TempBookBlock->BoxInfo.TypeNum = BoxesMap.Find(i % 14)->TypeNum;
 			TempBookBlock->BoxInfo.Texture = BoxesMap.Find(i % 14)->Texture;
 
-			TempBookBlock->OwningManager3 = this;//设置Box的管理者
+			TempBookBlock->OwningManagerLevel2 = this;//设置Box的管理者
 
 			//UE_LOG(LogTemp, Display, TEXT("%i"), Actors.Num());
 		}

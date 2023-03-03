@@ -82,23 +82,27 @@ void ANoteBookBlock::HandleClicked()
 		this->BlockMesh->SetMaterial(0, PostMaterial);
 		//BlockMesh->SetRenderCustomDepth(true);
 
-		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, BoxInfo.Type);
-		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::FromInt(BoxInfo.TypeNum));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, BoxInfo.Type);
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::FromInt(BoxInfo.TypeNum));
 
 		if (ClickSound)
 		{
 			UGameplayStatics::PlaySoundAtLocation(GetWorld(), ClickSound, this->GetActorLocation());
 		}
 
-		if (OwningManager3) {
-			HandleSameBoxArray<ABoxManegerLevel2*>(OwningManager3, this , "Level3");
+		if (OwningManagerLevel2) {
+			HandleSameBoxArray<ABoxManegerLevel2*>(OwningManagerLevel2, this , "Level3");
 			//UE_LOG(LogTemp,Display,TEXT(""))
 		}
-		else if (OwningManager2) {
-			HandleBoxArray<ABoxManegerLevel1*>(OwningManager2, this , "Level2");
+		else if (OwningManagerLevel1) {
+			HandleSameBoxArray<ABoxManegerLevel1*>(OwningManagerLevel1, this , "Level2");
 		}
 		else if (OwningManagerLevel3) {
-			HandleSameBoxArray<ABaseBoxManegerLevel3*>(OwningManagerLevel3, this, "Level3");
+			HandleSameBoxArray<ABaseBoxManegerLevel3*>(OwningManagerLevel3, this, "Level_Demo");
+		}
+		else if (OwningManager) {
+			HandleBoxArray<ABoxManeger*>(OwningManager, this, "Level_Demo");
+			UE_LOG(LogTemp, Display, TEXT("OwningManager"));
 		}
 	}
 
@@ -217,7 +221,7 @@ void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , FName Lev
 					Box->bIsActive = false;
 				}
 				Manager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 10; });
-				UE_LOG(LogTemp, Display, TEXT("RemoveAll"));
+				UE_LOG(LogTemp, Display, TEXT("RemoveAll_1"));
 			}
 		}
 		else
@@ -229,7 +233,7 @@ void ANoteBookBlock::HandleBoxArray(T1 Manager, ANoteBookBlock* self , FName Lev
 				Box->bIsActive = false;
 			}
 			Manager->Boxes.RemoveAll([](ANoteBookBlock* C) {return C->BoxInfo.TypeNum < 10; });
-			UE_LOG(LogTemp, Display, TEXT("RemoveAll"));
+			UE_LOG(LogTemp, Display, TEXT("RemoveAll_2"));
 		}
 
 	}

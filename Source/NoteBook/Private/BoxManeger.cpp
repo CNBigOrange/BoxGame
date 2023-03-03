@@ -116,17 +116,21 @@ ABoxManeger::ABoxManeger()
 
 	for (int i = 0; i < 9; i++) {
 
-		F_NumPair S_NumPair{ "TongZi",i+1 ,TexArray [i],nullptr};
+		F_NumPair S_NumPair{ "TongZi",i ,TexArray [i],nullptr};
+
 		BoxesMap.Add(i, S_NumPair);
+
 		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::FromInt(Band));
 		//UE_LOG(LogTemp, Display, TEXT("value:%s"), *FString::FromInt(Band));
 
+		S_NumPair.TypeNum = i;
 		S_NumPair.Type = "Wan";
 		S_NumPair.Texture = TexArray[i + 9];
 		BoxesMap.Add(i+9, S_NumPair);
 		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::FromInt(Band));
 		//UE_LOG(LogTemp, Display, TEXT("value:%s"), *FString::FromInt(Band));
 
+		S_NumPair.TypeNum = i;
 		S_NumPair.Type = "TiaoZi";
 		S_NumPair.Texture = TexArray[i + 18];
 		BoxesMap.Add(i+18, S_NumPair);
