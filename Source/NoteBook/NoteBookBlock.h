@@ -16,7 +16,9 @@
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnBoxesDelete);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnClickBoxDelete);
 
+class UBoxComponent;
 /** A block that can be clicked */
 UCLASS(minimalapi)
 class ANoteBookBlock : public AActor
@@ -24,14 +26,17 @@ class ANoteBookBlock : public AActor
 	GENERATED_BODY()
 
 	/** Dummy root component */
-	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class USceneComponent* DummyRoot;
+	//UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	//class USceneComponent* DummyRoot;
+	//UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	//class USceneComponent* SceneC;
 
 	/** StaticMesh component for the clickable block */
 	UPROPERTY(Category = Block, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* BlockMesh;
 
-
+	//UPROPERTY(Category = Block, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	//class UBoxComponent* BoxCollision;
 public:
 	ANoteBookBlock();
 
@@ -78,7 +83,7 @@ public:
 	UPROPERTY()
 	FLatentActionInfo LatentInfo;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	F_NumPair BoxInfo;
 
 	UPROPERTY(EditAnyWhere,BlueprintReadWrite)
@@ -91,10 +96,14 @@ public:
 	UAudioComponent* AC;
 
 	//实例化代理
+	UPROPERTY(BlueprintAssignable)
     FOnBoxesDelete OnBoxesDelete;
 
+	UPROPERTY(BlueprintAssignable)
+	FOnClickBoxDelete OnClickBox;
+
 	/** Handle the block being clicked */
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
 
 	/** Handle the block being touched  */
@@ -108,8 +117,12 @@ public:
 
 	template <typename T1>
 	UFUNCTION()
-	void HandleSameBoxArray(T1 Manager, ANoteBookBlock* self, FName Level);
+	void HandleSameBoxArray3(T1 Manager, ANoteBookBlock* self, FName Level);
 
+	template <typename T1>
+	UFUNCTION()
+	void HandleSameBoxArray2(T1 Manager, ANoteBookBlock* self, FName Level);
+	UFUNCTION(BlueprintCallable)
 	void HandleClicked();
 
 	void Highlight(bool bOn);
@@ -125,7 +138,7 @@ protected:
 
 public:
 	/** Returns DummyRoot subobject **/
-	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
+	//FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
 	/** Returns BlockMesh subobject **/
 	FORCEINLINE class UStaticMeshComponent* GetBlockMesh() const { return BlockMesh; }
 };

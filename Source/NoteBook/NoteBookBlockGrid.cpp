@@ -24,8 +24,8 @@ ANoteBookBlockGrid::ANoteBookBlockGrid()
 	//ScoreText->SetupAttachment(DummyRoot);
 
 	// Set defaults
-	XSize = 3;
-	ZSize = 3;
+	XSize = 5;
+	ZSize = 4;
 	YSize = 3;
 	BlockSpacing = 20.f;
 }

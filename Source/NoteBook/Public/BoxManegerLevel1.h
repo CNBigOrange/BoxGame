@@ -20,7 +20,7 @@ public:
 	UPROPERTY()
 		TArray<AActor*> OutActors;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite)
 		int32 BoxesNum;
 
 	UPROPERTY()

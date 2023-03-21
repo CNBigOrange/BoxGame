@@ -24,17 +24,19 @@ ABoxManegerLevel1::ABoxManegerLevel1()
 		ConstructorHelpers::FObjectFinderOptional<UTexture2D>	SevenTong;
 		ConstructorHelpers::FObjectFinderOptional<UTexture2D>	EightTong;
 		ConstructorHelpers::FObjectFinderOptional<UTexture2D>	NineTong;
+		ConstructorHelpers::FObjectFinderOptional<UTexture2D>	ShiTong;
 
 		FConstructorStatics2() :
-			OneTong(TEXT("/Game/Texture/Level2_Box/1tong.1tong"))
-			, TwoTong(TEXT("/Game/Texture/Level2_Box/2tiao.2tiao"))
-			, ThreeTong(TEXT("/Game/Texture/Level2_Box/3wan.3wan"))
-			, FourTong(TEXT("/Game/Texture/Level2_Box/4tong.4tong"))
-			, FiveTong(TEXT("/Game/Texture/Level2_Box/5tiao.5tiao"))
-			, SixTong(TEXT("/Game/Texture/Level2_Box/6wan.6wan"))
-			, SevenTong(TEXT("/Game/Texture/Level2_Box/7tiao.7tiao"))
-			, EightTong(TEXT("/Game/Texture/Level2_Box/8tong.8tong"))
-			, NineTong(TEXT("/Game/Texture/Level2_Box/9wan.9wan"))
+			OneTong(TEXT("/Game/Texture/Level1_Box/10.10"))
+			, TwoTong(TEXT("/Game/Texture/Level1_Box/2.2"))
+			, ThreeTong(TEXT("/Game/Texture/Level1_Box/3.3"))
+			, FourTong(TEXT("/Game/Texture/Level1_Box/4.4"))
+			, FiveTong(TEXT("/Game/Texture/Level1_Box/5.5"))
+			, SixTong(TEXT("/Game/Texture/Level1_Box/6.6"))
+			, SevenTong(TEXT("/Game/Texture/Level1_Box/7.7"))
+			, EightTong(TEXT("/Game/Texture/Level1_Box/8.8"))
+			, NineTong(TEXT("/Game/Texture/Level1_Box/9.9"))
+			, ShiTong(TEXT("/Game/Texture/Level1_Box/1.1"))
 		{
 		}
 
@@ -52,8 +54,9 @@ ABoxManegerLevel1::ABoxManegerLevel1()
 	TexArray.Emplace(ConstructorStatics2.SevenTong.Get());
 	TexArray.Emplace(ConstructorStatics2.EightTong.Get());
 	TexArray.Emplace(ConstructorStatics2.NineTong.Get());
+	TexArray.Emplace(ConstructorStatics2.ShiTong.Get());
 
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < 10; i++) {
 
 		F_NumPair S_NumPair{ "TongZi",i + 1 ,TexArray[i],nullptr };
 		BoxesMap.Add(i, S_NumPair);
@@ -92,11 +95,11 @@ void ABoxManegerLevel1::SetBoxTexture(TArray<AActor*> Actors, TMap<int32, F_NumP
 		if (Box) {
 			ANoteBookBlock* TempBookBlock = Cast<ANoteBookBlock>(Box);
 			auto DynMaterial = TempBookBlock->GetBlockMesh()->CreateDynamicMaterialInstance(1);
-			DynMaterial->SetTextureParameterValue("Texture", TexArray[i % 9]);
+			DynMaterial->SetTextureParameterValue("Texture", TexArray[i % 10]);
 
-			TempBookBlock->BoxInfo.Type = BoxesMap.Find(i % 9)->Type;
-			TempBookBlock->BoxInfo.TypeNum = BoxesMap.Find(i % 9)->TypeNum;
-			TempBookBlock->BoxInfo.Texture = BoxesMap.Find(i % 9)->Texture;
+			TempBookBlock->BoxInfo.Type = BoxesMap.Find(i % 10)->Type;
+			TempBookBlock->BoxInfo.TypeNum = BoxesMap.Find(i % 10)->TypeNum;
+			TempBookBlock->BoxInfo.Texture = BoxesMap.Find(i % 10)->Texture;
 
 			TempBookBlock->OwningManagerLevel1 = this;//设置Box的管理者
 
