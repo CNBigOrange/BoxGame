@@ -113,11 +113,11 @@ void ANoteBookBlock::HandleClicked()
 		}
 		//第三关
 		else if (OwningManagerLevel3) {
-			HandleSameBoxArray3<ABaseBoxManegerLevel3*>(OwningManagerLevel3, this, "Level_4");
+			HandleSameBoxArray3<ABaseBoxManegerLevel3*>(OwningManagerLevel3, this, "Level4");
 		}
 		//第四关
-		else if (OwningManager) {
-			HandleBoxArray<ABoxManeger*>(OwningManager, this, "Level_5");
+		else if (OwningManagerLevel2) {
+			HandleSameBoxArray3<ABoxManegerLevel2*>(OwningManagerLevel2, this, "Level5");
 			UE_LOG(LogTemp, Display, TEXT("OwningManager"));
 		}
 	}
