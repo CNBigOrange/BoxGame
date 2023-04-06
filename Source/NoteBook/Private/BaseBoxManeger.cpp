@@ -20,4 +20,12 @@ void ABaseBoxManeger::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//GetWorldTimerManager().SetTimer(TimeHandle, this, &ABaseBoxManeger::CreateSaveGameObj, 2.0f, false, 1.0f);
+}
+
+UMySaveGame* ABaseBoxManeger::CreateSaveGameObj()
+{
+	UMySaveGame* SaveGameInstance = Cast<UMySaveGame>(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass()));
+	
+	return SaveGameInstance;
 }

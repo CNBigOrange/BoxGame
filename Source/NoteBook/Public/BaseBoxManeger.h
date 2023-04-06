@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "TextureMaps.h"
 #include "Math/UnrealMathUtility.h"
+#include "MySaveGame.h"
 #include "BaseBoxManeger.generated.h"
 
 UCLASS()
@@ -35,11 +36,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool IsSuc = false;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//UUserWidget* WBP_Suc;
+
 
 protected:
-	// Called when the game starts or when spawned
+	FTimerHandle TimeHandle;
+
+	UFUNCTION(BlueprintCallable)
+	UMySaveGame* CreateSaveGameObj();
+
 	virtual void BeginPlay() override;
 
 	virtual void SetBoxTexture(TArray<AActor*> Actors, TMap<int32, F_NumPair> Map) {};

@@ -30,3 +30,25 @@ void UMyBoxGameSubsystem::AddScore()
 {
 	Score += 5;
 }
+
+void UMyBoxGameSubsystem::SaveGameData(int current_level)
+{
+	if (UMySaveGame* SaveGameInstance = Cast<UMySaveGame>
+		(UGameplayStatics::CreateSaveGameObject(UMySaveGame::StaticClass())))
+	{
+		SaveGameInstance->Level = current_level;
+
+		UGameplayStatics::AsyncSaveGameToSlot(SaveGameInstance, SaveGameInstance->SaveSlotName, SaveGameInstance->UserIndex);
+	}
+}
+
+const int& UMyBoxGameSubsystem::LoadingGameData()
+{
+	//…Ë÷√ŒØÕ–
+	//FAsyncLoadGameFromSlotDelegate LoadedDelegate;
+	if (UMySaveGame* LoadedGame = Cast<UMySaveGame>(UGameplayStatics::LoadGameFromSlot(TEXT("GameSaveSlot"), 0)))
+	{
+		return LoadedGame->Level;
+	}
+	return  i;
+}

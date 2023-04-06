@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
+#include "MySaveGame.h"
 #include "MyBoxGameSubsystem.generated.h"
 
 
@@ -25,6 +26,12 @@ public:
 		void AddScore();
 
 	UFUNCTION(BlueprintCallable)
+		void SaveGameData(int current_level);
+
+	UFUNCTION(BlueprintCallable)
+		const int & LoadingGameData();
+
+	UFUNCTION(BlueprintCallable)
 		FORCEINLINE int32 GetBoxNums() { return BoxNums; }
 
 	UFUNCTION(BlueprintCallable)
@@ -38,7 +45,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "GameData")
 		ANoteBookBlock* Box;
-protected:
 
+protected:
+	int i = -1;
 
 };
