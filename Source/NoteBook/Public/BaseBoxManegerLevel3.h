@@ -6,9 +6,7 @@
 #include "BaseBoxManeger.h"
 #include "BaseBoxManegerLevel3.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class NOTEBOOK_API ABaseBoxManegerLevel3 : public ABaseBoxManeger
 {
